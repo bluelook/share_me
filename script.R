@@ -1,19 +1,21 @@
-library(tidyverse)
-mean_steps <-  read.csv("data.csv", stringsAsFactors = FALSE)
+library("plot3D")
+data(iris)
+x <- sep.l <- iris$Sepal.Length
+y <- pet.l <- iris$Petal.Length
+z <- sep.w <- iris$Sepal.Width
+scatter3D(x, y, z, main = "Sample data", xlab = "dimension 1",
+          ylab ="dimension 3", zlab = "dimension 2", phi = 0, bty = "b",
+          pch = 20, cex = 2, 
+          col = c("#1B9E77", "#D95F02", "#7570B3"), 
+          colkey = list(at = c(2, 3, 4), side = 1),
+          labels = c("setosa", "versicolor", "virginica"),
+          col.var = as.integer(iris$Species))
 
-ggplot(data=mean_steps,aes(x = trial, y = mean_same, color = block, group=actor, alpha=actor)) +
-  stat_summary(fun="mean",position=position_dodge(width=0.1), 
-               geom="line" ,size=2) +
-  geom_hline(yintercept = 50,linetype="dashed", color = "grey",size=1)+
-  scale_y_continuous(name="Percentage correct chosen (%)", breaks = seq(0, 100, 25)) +
-  scale_x_continuous(name="Trial", breaks = seq(0, 20, 4)) +
-  facet_wrap(.~block, strip.position="top")+
-  scale_color_manual(values=wes_palette("Darjeeling1"), guide=F)+#name = "Preferred Strategy", labels = c("reapraisal","distraction","savory","sweet","blue closet","brown closet"))+
-  scale_alpha_manual(values = c(0.5, 1,0.5, 1,0.5, 1),guide=FALSE) +
-  theme(
-    legend.title = element_blank(),
-    axis.title.x = element_text(size = 10, vjust = -0.35),
-    axis.title.y = element_text(size = 10, vjust = 0.5),
-    axis.text.x = element_text(size = 8, vjust = 0.5),
-    axis.text.y = element_text(size = 8, vjust = 0.5)
-  )
+scatter3D(x, y, z, bty = "u", pch = 20, cex = 2, phi = 20,xlab = "dimension 1",
+          ylab ="dimension 3", zlab = "dimension 2",main = "Sample data",
+          col.var = as.integer(iris$Species), 
+          col = ramp.col(c("blue", "yellow", "red")),
+          colkey = list(at = c(2, 3, 4), side=1,
+                        length = 0.5, width = 0.5,
+                        labels = c("adulthood", "versicolor", "infancy")))          
+
